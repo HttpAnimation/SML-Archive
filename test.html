@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SML Archive</title>
+  <link rel="stylesheet" href="styles.css"> <!-- Link to the external CSS file -->
+  <style>
+    .video-container {
+      display: none;
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio (height divided by width) */
+      height: 0;
+      overflow: hidden;
+    }
+    
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    section {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="SML_new_logo.webp" alt="Channel Icon">
+    <h1>SML Archive</h1>
+  </header>
+  
+  <nav>
+    <!-- Navigation links -->
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Videos</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
+  
+  <main>
+    <!-- Content of the channel page -->
+    <section>
+      <h2>Videos</h2>
+      <!-- Embedded video with auto scaling -->
+      <div class="video-container">
+        <iframe id="video-iframe" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p id="video-title" data-src="https://www.youtube.com/embed/6w8QkUBx0qc">SML Movie: Chef Pee Pee Quits Part 2</p>
+    </section>
+  </main>
+  
+  <footer>
+    <p>&copy; 2023 SML Archive. All rights reserved.</p>
+  </footer>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', function() {
+      var videoContainer = document.querySelector('.video-container');
+      var videoIframe = document.getElementById('video-iframe');
+      var videoTitle = document.getElementById('video-title');
+
+      videoTitle.addEventListener('click', function() {
+        if (!videoContainer.style.display || videoContainer.style.display === 'none') {
+          var dataSrc = videoTitle.getAttribute('data-src');
+          videoIframe.setAttribute('src', dataSrc);
+          videoContainer.style.display = 'block';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
