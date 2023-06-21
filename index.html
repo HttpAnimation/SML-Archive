@@ -25,6 +25,35 @@
       text-align: center;
     }
   </style>
+  <script>
+    function loadVideo(element) {
+      const iframe = element.querySelector('iframe');
+      const src = iframe.getAttribute('data-src');
+      iframe.setAttribute('src', src);
+    }
+
+    function handleIntersection(entries, observer) {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          loadVideo(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }
+
+    const videoSections = document.querySelectorAll('section');
+
+    const options = {
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver(handleIntersection, options);
+
+    videoSections.forEach((section) => {
+      observer.observe(section);
+    });
+  </script>
 </head>
 <body>
   <header>
@@ -47,13 +76,13 @@
       <h2>Videos</h2>
       <!-- Embedded video with auto scaling -->
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/6w8QkUBx0qc" frameborder="0" allowfullscreen></iframe>
+        <iframe data-src="https://www.youtube.com/embed/6w8QkUBx0qc" frameborder="0" allowfullscreen></iframe>
       </div>
       <p>SML Movie: Chef Pee Pee Quits Part 2</p>
     </section>
     <section>
       <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/lbqEPZI0-zA" frameborder="0" allowfullscreen></iframe>
+        <iframe data-src="https://www.youtube.com/embed/lbqEPZI0-zA" frameborder="0" allowfullscreen></iframe>
       </div>
       <p>SML Movie: Black Yoshi's Big Bamboozle [REUPLOADED] - YouTube</p>
     </section>
