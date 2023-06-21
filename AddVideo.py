@@ -1,4 +1,6 @@
 import re
+import requests
+from bs4 import BeautifulSoup
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -16,14 +18,26 @@ def extract_video_id(url):
     else:
         return None
 
+def get_video_title(url):
+    try:
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, "html.parser")
+        title = soup.find("title").text
+        return title
+    except:
+        return None
 
 def add_video_to_html():
-    video_title = title_entry.get()
     video_url = url_entry.get()
 
     video_id = extract_video_id(video_url)
     if video_id is None:
         messagebox.showerror("Error", "Invalid YouTube video URL. Please provide a valid URL.")
+        return
+
+    video_title = get_video_title(video_url)
+    if video_title is None:
+        messagebox.showerror("Error", "Unable to retrieve the video title. Please check the URL or try again later.")
         return
 
     with open('index.html', 'r') as file:
@@ -48,10 +62,8 @@ def add_video_to_html():
 
     messagebox.showinfo("Success", f"Video '{video_title}' added successfully!")
 
-    # Clear the text boxes
-    title_entry.delete(0, tk.END)
+    # Clear the text box
     url_entry.delete(0, tk.END)
-
 
 def toggle_dark_mode():
     global dark_mode
@@ -71,7 +83,6 @@ def toggle_dark_mode():
         add_button.config(bg=dark_button_bg, fg=dark_button_fg)
         dark_mode_button.config(text="Light Mode")
 
-
 # Create the main window
 root = tk.Tk()
 root.title("Add Video to HTML")
@@ -83,14 +94,6 @@ dark_mode = False
 # Set dark mode if enabled
 if dark_mode:
     root.config(bg=dark_bg)
-
-# Create and configure the title label
-title_label = tk.Label(root, text="Video Title:")
-title_label.pack()
-
-# Create and configure the title entry field
-title_entry = tk.Entry(root)
-title_entry.pack()
 
 # Create and configure the URL label
 url_label = tk.Label(root, text="Video URL:")
