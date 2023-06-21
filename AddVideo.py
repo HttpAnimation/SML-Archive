@@ -27,6 +27,10 @@ def get_video_title(url):
     except:
         return None
 
+def video_already_exists(html_content, video_title):
+    pattern = re.compile(r'<p>\s*{}\s*</p>'.format(re.escape(video_title)), re.IGNORECASE)
+    return pattern.search(html_content) is not None
+
 def add_video_to_html():
     video_url = url_entry.get()
 
@@ -42,6 +46,10 @@ def add_video_to_html():
 
     with open('index.html', 'r') as file:
         html_content = file.read()
+
+    if video_already_exists(html_content, video_title):
+        messagebox.showerror("Error", "The video already exists.")
+        return
 
     video_section_start = html_content.find('<section>\n      <h2>Videos</h2>')
     video_section_end = html_content.find('</section>', video_section_start) + len('</section>')
