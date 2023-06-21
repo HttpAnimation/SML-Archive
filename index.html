@@ -25,36 +25,6 @@
       text-align: center;
     }
   </style>
-  <script>
-    function loadVideo(element) {
-      const iframe = element.querySelector('iframe');
-      const src = iframe.getAttribute('data-src');
-      iframe.src = src;
-    }
-
-    function handleIntersection(entries) {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          loadVideo(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }
-
-    const videoSections = document.querySelectorAll('section');
-
-    const options = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const observer = new IntersectionObserver(handleIntersection, options);
-
-    videoSections.forEach((section) => {
-      observer.observe(section);
-    });
-  </script>
 </head>
 <body>
   <header>
