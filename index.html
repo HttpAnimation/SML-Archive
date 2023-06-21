@@ -29,7 +29,7 @@
     function loadVideo(element) {
       const iframe = element.querySelector('iframe');
       const src = iframe.getAttribute('data-src');
-      iframe.setAttribute('src', src);
+      iframe.src = src;
     }
 
     function handleIntersection(entries, observer) {
@@ -303,14 +303,7 @@
       </div>
       <p>SML Movie: Say Cheese and Bye [REUPLOADED] - YouTube</p>
     </section>
-    
-    <section>
-      <div class="video-container">
-        <iframe src="https://www.youtube.com/embed/ABoh8b7KYCg" frameborder="0" allowfullscreen></iframe>
-      </div>
-      <p>SML Movie: Say Cheese and Bye [REUPLOADED] - YouTube</p>
-    </section>
-    
+     
     <section>
       <div class="video-container">
         <iframe src="https://www.youtube.com/embed/b_eoTn-bbNo" frameborder="0" allowfullscreen></iframe>
